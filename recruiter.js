@@ -8,12 +8,41 @@ var util = require('./util.js');
 //TODO: You need to write this function AND utilize it.
 // bracketFromGPA(decimal GPA);
 function bracketFromGPA(gpa) {
-	// 4-3.5, 3.49 - 3.0, 2.99 - 2.5
-	return; //some form of bracket number
+	if (3.5 <= gpa && gpa <= 4) {
+		return 3;
+	}
+	else if (3 <= gpa && gpa <= 3.49) {
+		return 2;
+	}
+	else if (2.5 <= gpa && gpa <= 2.99) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
 }
 
 // TODO: recruiter( Array of hireables )
 function recruiter(internArr) {
+	var i;
+	var j;
+
+	for(i = 0; i < internArr.length; i++) {
+		var temp;
+		temp = false;
+		for(j = 0; j < 309; ++j) {
+			if (internArr[i].degree===degreeSWage.degreenames[j]) {
+				temp = true;
+			}
+		}
+		if (internArr[i].degree==="astrology") {
+			temp = true;
+		}
+		if (temp === false) {
+			internArr.splice(i,1);
+			i--;
+		}
+	}
 
 	// Below is just to help show the syntax you need,
 	// you'll need to process ALL of the hireables like this one and sort
@@ -39,10 +68,10 @@ function recruiter(internArr) {
 	internArr[index].metric = imetric;
 
 	// and then sort them all (it doesn't return anything, it modifies the array sent)
-	util.sortInternObjects( /*Array of hireables with "metric" as a property*/ );
+	// util.sortInternObjects( /*Array of hireables with "metric" as a property*/ );
 
 
-	// Output 
+	// Output
 	// An array of HIREABLE 'intern objects' (in order of most valueable to least valueable)
 	// with at least the properties "name", "metric", "degree"
 	// You can come up with any number you want for "metric" as long as it corresponds to the spec

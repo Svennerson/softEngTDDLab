@@ -17,7 +17,7 @@ test('util.getValueFromWageAndExp', function(t) {
   	t.fail('does not factor in experiance');
   }
 
-  t.equal(util.getValueFromWageAndExp(34, 1.3), false, 
+  t.equal(util.getValueFromWageAndExp(34, 1.3), false,
   	"getValueFromWageAndExp catches a partial year input and returns false");
 
   t.end();
@@ -39,7 +39,7 @@ test('util.sortInternObjects', function(t) {
 		expectedArr[3]  // 0
 	];
 
-	// Lets make a copy of the input to sort with the function 
+	// Lets make a copy of the input to sort with the function
 	var actualArr = inputArr.slice();
 
 	// Sort by reference (in-place)
@@ -64,6 +64,48 @@ test('util.sortInternObjects', function(t) {
 
   t.end();
 });
+
+test('bracketFromGPA', function(t) {
+
+  t.deepEqual( recruiter.bracketFromGPA(3.5), 3, "returns bracket three");
+  t.deepEqual( recruiter.bracketFromGPA(3.49), 2, "returns bracket two");
+  t.deepEqual( recruiter.bracketFromGPA(3), 2, "returns bracket two");
+  t.deepEqual( recruiter.bracketFromGPA(2.99), 1, "returns bracket one");
+  t.deepEqual( recruiter.bracketFromGPA(2.5), 1, "returns bracket one");
+  t.deepEqual( recruiter.bracketFromGPA(2.49), 0, "fucking disgraceful");
+
+  t.end();
+
+});
+
+test('Do the Degree Do', function(t) {
+
+  t.comment("DUMB DEGREES ARE EARNED BY DUMB PEOPLE");
+  var collArr = [
+    interns[0],
+    interns[6],
+    interns[7]
+  ];
+
+  var inputArr = collArr.slice();
+  inputArr[1].degree = "beet slicing";
+  inputArr[2].degree = "";
+
+  recruiter.recruiter(inputArr);
+
+  t.deepEqual(inputArr.length, 1, "PURGES THESE LANDS OF THE HERETICAL BEET SLICERS.");
+  t.deepEqual(inputArr[0].degree, "advertising", "Because improving your product is for chumps.");
+
+  inputArr = collArr.slice();
+  inputArr[1].degree = "beet slicing";
+  inputArr[2].degree = "astrology";
+  recruiter.recruiter(inputArr);
+
+  t.deepEqual(inputArr.length, 2, "THE SKILL-LESS HEATHEN HAS REPENTED");
+  t.deepEqual(inputArr[1].degree, "astrology", "More like Asstrology amirite?");
+
+  t.end();
+})
 
 // Your tests go here  (methods reference: https://www.npmjs.com/package/tape#testname-opts-cb )
 
